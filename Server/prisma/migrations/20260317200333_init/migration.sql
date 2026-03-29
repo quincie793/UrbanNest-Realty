@@ -1,0 +1,32 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- CreateTable
+CREATE TABLE [dbo].[Property] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [title] NVARCHAR(1000) NOT NULL,
+    [location] NVARCHAR(1000) NOT NULL,
+    [price] INT NOT NULL,
+    [bedrooms] INT NOT NULL,
+    [bathrooms] INT NOT NULL,
+    [images] NVARCHAR(1000) NOT NULL,
+    [lat] FLOAT(53) NOT NULL,
+    [lng] FLOAT(53) NOT NULL,
+    [type] NVARCHAR(1000) NOT NULL,
+    [createdAt] DATETIME2 NOT NULL CONSTRAINT [Property_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT [Property_pkey] PRIMARY KEY CLUSTERED ([id])
+);
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH

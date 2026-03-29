@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  name       String
+  email      String     @unique
+  password   String
+  role       String     @default("USER")
+  createdAt  DateTime   @default(now())
+  properties Property[] // ← this is the opposite relation to Property.user
+  favorites  Favorite[]
+  reviews    Review[]
+  messages   Message[]
+}
+
+// Remove Agent completely if admins are adding properties
+// model Agent {
+//   id         Int       @id @default(autoincrement())
+//   name       String
+//   email      String    @unique
+//   phone      String
+//   properties Property[]  // ← Remove this field
+//   createdAt  DateTime  @default(now())
+// }
+
+model Property {
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String
+  location    String
+  price       Int
+  bedrooms    Int
+  bathrooms   Int
+  lat         Float
+  lng         Float
+  type        String
+  userId      Int
+  user        User            @relation(fields: [userId], references: [id]) // ← matched by User.properties
+  images      PropertyImage[]
+  favorites   Favorite[]
+  reviews     Review[]
+  createdAt   DateTime        @default(now())
+  messages    Message[]
+}
+
+model PropertyImage {
+  id         Int      @id @default(autoincrement())
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+  url        String
+}
+
+model Favorite {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  propertyId Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  property   Property @relation(fields: [propertyId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, propertyId])
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  propertyId Int
+  rating     Int // 1–5 stars
+  comment    String?
+  user       User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  property   Property @relation(fields: [propertyId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model Message {
+  id         Int            @id @default(autoincrement())
+  user       User           @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userId     Int
+  property   Property?      @relation(fields: [propertyId], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  propertyId Int?
+  content    String
+  replies    MessageReply[]
+  createdAt  DateTime       @default(now())
+}
+
+model MessageReply {
+  id        Int      @id @default(autoincrement())
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  messageId Int
+  content   String
+  createdAt DateTime @default(now())
+}
