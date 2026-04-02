@@ -15,8 +15,8 @@ interface PropertyCardProps {
   bedrooms: number;
   bathrooms: number;
   images: PropertyImage[];
-  isFavorited: boolean;
-  onToggleFavorite: (propertyId: number) => void;
+  isFavorited?: boolean;
+  onToggleFavorite?: (propertyId: number) => void;
 }
 
 export default function PropertyCard({
@@ -38,7 +38,7 @@ export default function PropertyCard({
 
   const handleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
-    onToggleFavorite(id);
+    onToggleFavorite?.(id);
     setFavorite(!favorite);
   };
 
