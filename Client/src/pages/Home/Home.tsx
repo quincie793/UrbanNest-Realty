@@ -258,10 +258,10 @@ export default function Home() {
                 <div className="text-5xl mb-4">✉️</div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-3">Email</h3>
                 <a
-                  href="mailto:info@urbannestrealty.com"
+                  href="mailto:urbannestrealty899@gmail.com"
                   className="text-blue-600 hover:text-blue-800 font-semibold text-lg underline"
                 >
-                  info@urbannestrealty.com
+                  urbannestrealty899@gmail.com
                 </a>
               </div>
 
@@ -270,10 +270,10 @@ export default function Home() {
                 <div className="text-5xl mb-4">📞</div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-3">Phone</h3>
                 <a
-                  href="tel:+254700000000"
+                  href="tel:+254705524362"
                   className="text-blue-600 hover:text-blue-800 font-semibold text-lg"
                 >
-                  +254 700 000 000
+                  +254 705 524 362
                 </a>
               </div>
 
@@ -282,12 +282,12 @@ export default function Home() {
                 <div className="text-5xl mb-4">📸</div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-3">Instagram</h3>
                 <a
-                  href="https://instagram.com/UrbanNest Realty"
+                  href="https://instagram.com/urbannestrealty899"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-800 font-semibold text-lg underline"
                 >
-                  @UrbanNest Realty
+                  @urbannestrealty899
                 </a>
               </div>
 
